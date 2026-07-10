@@ -12,42 +12,20 @@
 ;; Each entry is an Op: {:op/step :op/seq :op/action :op/label :op/robot
 ;; :op/from :op/to :op/dur-min :op/process}.
 
-[;; step:01-foundation — a robot:printer (deposition) step.
- {:op/step "step:01-foundation" :op/seq 1 :op/action "procure"
-  :op/label "調達" :op/robot "robot:printer"
-  :op/from "yard" :op/to "zone_recv" :op/dur-min 5.0 :op/process "deposition"}
- {:op/step "step:01-foundation" :op/seq 2 :op/action "deliver"
-  :op/label "搬入" :op/robot "robot:printer"
-  :op/from "zone_recv" :op/to "site" :op/dur-min 4.0 :op/process "deposition"}
- {:op/step "step:01-foundation" :op/seq 3 :op/action "stage"
-  :op/label "搬送" :op/robot "robot:printer"
-  :op/from "site" :op/to "work-zone" :op/dur-min 2.0 :op/process "deposition"}
- {:op/step "step:01-foundation" :op/seq 4 :op/action "place"
-  :op/label "打設" :op/robot "robot:printer"
-  :op/from "work-zone" :op/to "work-zone" :op/dur-min 10.0 :op/process "deposition"}
- {:op/step "step:01-foundation" :op/seq 5 :op/action "fasten"
-  :op/label "締結" :op/robot "robot:printer"
-  :op/from "work-zone" :op/to "work-zone" :op/dur-min 3.0 :op/process "deposition"}
- {:op/step "step:01-foundation" :op/seq 6 :op/action "inspect"
-  :op/label "検査" :op/robot "robot:printer"
-  :op/from "work-zone" :op/to "work-zone" :op/dur-min 2.0 :op/process "deposition"}
+;; NOTE (scripts/edn-datomize.cljs preserve-ns): each entity gained a :db/id
+;; tempid (-1..-N, positional) so this vector is valid Datomic/Datascript
+;; tx-data as-is `(d/transact conn (edn/read-string (slurp f)))`. Existing
+;; :op/* namespaced keys are unchanged. Attribute schema: schema.edn (repo root).
 
- ;; step:02-steel — a robot:bolter (thermal-weld) step.
- {:op/step "step:02-steel" :op/seq 1 :op/action "procure"
-  :op/label "調達" :op/robot "robot:bolter"
-  :op/from "yard" :op/to "zone_recv" :op/dur-min 6.0 :op/process "thermal-weld"}
- {:op/step "step:02-steel" :op/seq 2 :op/action "deliver"
-  :op/label "搬入" :op/robot "robot:bolter"
-  :op/from "zone_recv" :op/to "site" :op/dur-min 5.0 :op/process "thermal-weld"}
- {:op/step "step:02-steel" :op/seq 3 :op/action "stage"
-  :op/label "搬送" :op/robot "robot:bolter"
-  :op/from "site" :op/to "work-zone" :op/dur-min 3.0 :op/process "thermal-weld"}
- {:op/step "step:02-steel" :op/seq 4 :op/action "weld"
-  :op/label "建方" :op/robot "robot:bolter"
-  :op/from "work-zone" :op/to "work-zone" :op/dur-min 12.0 :op/process "thermal-weld"}
- {:op/step "step:02-steel" :op/seq 5 :op/action "fasten"
-  :op/label "締結" :op/robot "robot:bolter"
-  :op/from "work-zone" :op/to "work-zone" :op/dur-min 4.0 :op/process "thermal-weld"}
- {:op/step "step:02-steel" :op/seq 6 :op/action "inspect"
-  :op/label "検査" :op/robot "robot:bolter"
-  :op/from "work-zone" :op/to "work-zone" :op/dur-min 2.0 :op/process "thermal-weld"}]
+[{:db/id -1 :op/action "procure" :op/dur-min 5.0 :op/from "yard" :op/label "調達" :op/process "deposition" :op/robot "robot:printer" :op/seq 1 :op/step "step:01-foundation" :op/to "zone_recv"}
+ {:db/id -2 :op/action "deliver" :op/dur-min 4.0 :op/from "zone_recv" :op/label "搬入" :op/process "deposition" :op/robot "robot:printer" :op/seq 2 :op/step "step:01-foundation" :op/to "site"}
+ {:db/id -3 :op/action "stage" :op/dur-min 2.0 :op/from "site" :op/label "搬送" :op/process "deposition" :op/robot "robot:printer" :op/seq 3 :op/step "step:01-foundation" :op/to "work-zone"}
+ {:db/id -4 :op/action "place" :op/dur-min 10.0 :op/from "work-zone" :op/label "打設" :op/process "deposition" :op/robot "robot:printer" :op/seq 4 :op/step "step:01-foundation" :op/to "work-zone"}
+ {:db/id -5 :op/action "fasten" :op/dur-min 3.0 :op/from "work-zone" :op/label "締結" :op/process "deposition" :op/robot "robot:printer" :op/seq 5 :op/step "step:01-foundation" :op/to "work-zone"}
+ {:db/id -6 :op/action "inspect" :op/dur-min 2.0 :op/from "work-zone" :op/label "検査" :op/process "deposition" :op/robot "robot:printer" :op/seq 6 :op/step "step:01-foundation" :op/to "work-zone"}
+ {:db/id -7 :op/action "procure" :op/dur-min 6.0 :op/from "yard" :op/label "調達" :op/process "thermal-weld" :op/robot "robot:bolter" :op/seq 1 :op/step "step:02-steel" :op/to "zone_recv"}
+ {:db/id -8 :op/action "deliver" :op/dur-min 5.0 :op/from "zone_recv" :op/label "搬入" :op/process "thermal-weld" :op/robot "robot:bolter" :op/seq 2 :op/step "step:02-steel" :op/to "site"}
+ {:db/id -9 :op/action "stage" :op/dur-min 3.0 :op/from "site" :op/label "搬送" :op/process "thermal-weld" :op/robot "robot:bolter" :op/seq 3 :op/step "step:02-steel" :op/to "work-zone"}
+ {:db/id -10 :op/action "weld" :op/dur-min 12.0 :op/from "work-zone" :op/label "建方" :op/process "thermal-weld" :op/robot "robot:bolter" :op/seq 4 :op/step "step:02-steel" :op/to "work-zone"}
+ {:db/id -11 :op/action "fasten" :op/dur-min 4.0 :op/from "work-zone" :op/label "締結" :op/process "thermal-weld" :op/robot "robot:bolter" :op/seq 5 :op/step "step:02-steel" :op/to "work-zone"}
+ {:db/id -12 :op/action "inspect" :op/dur-min 2.0 :op/from "work-zone" :op/label "検査" :op/process "thermal-weld" :op/robot "robot:bolter" :op/seq 6 :op/step "step:02-steel" :op/to "work-zone"}]
