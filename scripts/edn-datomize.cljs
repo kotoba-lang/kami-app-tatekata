@@ -18,7 +18,7 @@
 ;;                              だけ（idiomatic な既存名前空間を壊さない）。
 
 (require '[clojure.edn :as edn]
-         '[clojure.string :as str])
+         '[kotoba.lang.text :as str])
 
 (def fs (js/require "node:fs"))
 (def path (js/require "node:path"))
