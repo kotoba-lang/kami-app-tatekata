@@ -1,4 +1,4 @@
-#!/usr/bin/env nbb
+#!/usr/bin/env kbb
 ;; scripts/edn-datomize.cljk — EDN → Datomic/Datascript tx-data 変換ツール
 ;; (kami-app-tatekata 用に com-junkawasaki/root superproject の
 ;; manifest/edn-datomize.cljs から移植・簡略化。schema-path はこのリポジトリの
@@ -185,7 +185,7 @@
     (case mode
       "wrap-map"    (wrap-map! a b)
       "preserve-ns" (preserve-ns! a)
-      (do (println "usage: nbb scripts/edn-datomize.cljk [wrap-map <path> <ns> | preserve-ns <path>]")
+      (do (println "usage: kbb --backend sci scripts/edn-datomize.cljk [wrap-map <path> <ns> | preserve-ns <path>]")
           (js/process.exit 1)))))
 
 (apply -main *command-line-args*)
