@@ -12,7 +12,7 @@
 ;; Each entry is an Op: {:op/step :op/seq :op/action :op/label :op/robot
 ;; :op/from :op/to :op/dur-min :op/process}.
 
-;; NOTE (scripts/edn-datomize.cljs preserve-ns): each entity gained a :db/id
+;; NOTE (scripts/edn-datomize.cljk preserve-ns): each entity gained a :db/id
 ;; tempid (-1..-N, positional) so this vector is valid Datomic/Datascript
 ;; tx-data as-is `(d/transact conn (edn/read-string (slurp f)))`. Existing
 ;; :op/* namespaced keys are unchanged. Attribute schema: schema.edn (repo root).
